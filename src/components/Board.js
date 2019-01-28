@@ -1,44 +1,34 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import Square from './Square';
+import { updateBoard } from '../actions';
 import { calculateWinner } from '../utils';
 
-export default class Board extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      squares: Array(9).fill(null),
-      xIsNext: true
-    };
-  }
-
+class Board extends React.Component {
   handleClick(i) {
-    const squares = this.state.squares.slice();
+    const { squares, updateBoard } = this.props;
     if (calculateWinner(squares) || squares[i]) {
       return;
     }
-    squares[i] = this.state.xIsNext ? 'X' : 'O';
-    this.setState({
-      squares: squares,
-      xIsNext: !this.state.xIsNext
-    });
+    updateBoard(i);
   }
 
   renderSquare(i) {
     return (
       <Square
-        value={this.state.squares[i]}
+        value={this.props.squares[i]}
         onClick={() => this.handleClick(i)}
       />
     );
   }
 
   render() {
-    const winner = calculateWinner(this.state.squares);
+    const winner = calculateWinner(this.props.squares);
     let status;
     if (winner) {
-      status = 'Winner: ' + winner;
+      status = `Winner: ${winner}`;
     } else {
-      status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+      status = `Next player: ${this.props.xIsNext ? 'X' : 'O'}`;
     }
 
     return (
@@ -63,3 +53,17 @@ export default class Board extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  squares: state.squares,
+  xIsNext: state.xIsNext
+});
+
+const mapDispatchToProps = dispatch => ({
+  updateBoard: squareIndex => dispatch(updateBoard(squareIndex))
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Board);
