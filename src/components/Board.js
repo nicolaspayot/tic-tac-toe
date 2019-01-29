@@ -13,42 +13,56 @@ class Board extends React.Component {
     updateBoard(i);
   }
 
-  renderSquare(i) {
+  renderSquare(i, className) {
     return (
       <Square
         value={this.props.squares[i]}
+        className={className}
         onClick={() => this.handleClick(i)}
       />
     );
   }
 
-  render() {
-    const winner = calculateWinner(this.props.squares);
+  renderStatus(winner) {
+    const value = sign => (
+      <span className={sign === 'X' ? 'is-x' : 'is-o'}>&nbsp;{sign}</span>
+    );
+
     let status;
     if (winner) {
-      status = `Winner: ${winner}`;
+      status = <>Winner:{value(winner)}</>;
     } else {
-      status = `Next player: ${this.props.xIsNext ? 'X' : 'O'}`;
+      status = <>Next player:{value(this.props.xIsNext ? 'X' : 'O')}</>;
     }
+    return <div className="status">{status}</div>;
+  }
+
+  render() {
+    const winner = calculateWinner(this.props.squares);
+    const status = this.renderStatus(winner);
 
     return (
       <div>
-        <div className="status">{status}</div>
-        <div className="board-row">
-          {this.renderSquare(0)}
-          {this.renderSquare(1)}
-          {this.renderSquare(2)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(3)}
-          {this.renderSquare(4)}
-          {this.renderSquare(5)}
-        </div>
-        <div className="board-row">
-          {this.renderSquare(6)}
-          {this.renderSquare(7)}
-          {this.renderSquare(8)}
-        </div>
+        {status}
+        <table>
+          <tbody>
+            <tr>
+              {this.renderSquare(0)}
+              {this.renderSquare(1)}
+              {this.renderSquare(2)}
+            </tr>
+            <tr>
+              {this.renderSquare(3)}
+              {this.renderSquare(4)}
+              {this.renderSquare(5)}
+            </tr>
+            <tr>
+              {this.renderSquare(6)}
+              {this.renderSquare(7)}
+              {this.renderSquare(8)}
+            </tr>
+          </tbody>
+        </table>
       </div>
     );
   }

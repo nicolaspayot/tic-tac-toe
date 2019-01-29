@@ -1,4 +1,7 @@
-export const reducer = (state = { squares: Array(9).fill(null), xIsNext: true }, action) => {
+export const reducer = (
+  state = { squares: Array(9).fill(null), xIsNext: true },
+  action
+) => {
   switch (action.type) {
     case 'UPDATE_BOARD':
       const squares = state.squares.slice();
