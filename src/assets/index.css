@@ -1,3 +1,9 @@
+:root {
+  --grey: #489e92;
+  --x-color: #545454;
+  --o-color: #f2ebd3;
+}
+
 html,
 body,
 #root,
@@ -10,7 +16,7 @@ body,
 body {
   font: 45px 'Century Gothic', Futura, sans-serif;
   margin: 20px;
-  color: #489e92;
+  color: var(--grey);
   background-color: #14bdac;
 }
 
@@ -29,7 +35,7 @@ table {
   border-collapse: collapse;
 }
 table td {
-  border: 12px solid #489e92;
+  border: 12px solid var(--grey);
 }
 table tr:first-child td {
   border-top: none;
@@ -45,7 +51,7 @@ table tr td:last-child {
 }
 
 .square {
-  background: #14bdac;
+  background: transparent;
   border: none;
   float: left;
   font-size: 100px;
@@ -58,19 +64,15 @@ table tr td:last-child {
 }
 
 .is-x {
-  color: #545454;
+  color: var(--x-color);
 }
 
 .is-o {
-  color: #f2ebd3;
+  color: var(--o-color);
 }
 
 .square:focus {
   outline: none;
-}
-
-.kbd-navigation .square:focus {
-  background: #ddd;
 }
 
 .game {
@@ -92,19 +94,14 @@ table tr td:last-child {
 }
 
 .restart {
-  background-color: #489e92;
+  background-color: transparent;
+  border: 5px solid var(--grey);
   text-transform: uppercase;
-  font-size: 1rem;
+  font-size: 1.5rem;
   font-weight: bold;
-  color: #fff;
+  color: var(--grey);
   cursor: pointer;
-  border: none;
   padding: 15px 50px;
-}
-
-.restart:hover,
-.restart:focus {
-  background: #397c73;
 }
 
 .restart:focus {
@@ -113,5 +110,5 @@ table tr td:last-child {
 }
 
 .restart:active {
-  transform: scale(0.99);
+  transform: scale(0.95);
 }
