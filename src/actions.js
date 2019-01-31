@@ -6,3 +6,7 @@ export const makeHuMove = squareIndex => ({
 export const makeAIMove = () => ({
   type: 'MAKE_AI_MOVE'
 });
+
+export const restartGame = () => ({
+  type: 'RESTART_GAME'
+});

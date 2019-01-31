@@ -1,9 +1,8 @@
 import { minimax } from './utils';
 
-export const reducer = (
-  state = { squares: Array(9).fill(null), xIsNext: true },
-  action
-) => {
+const initialState = { squares: Array(9).fill(null), xIsNext: true };
+
+export const reducer = (state = initialState, action) => {
   switch (action.type) {
     case 'MAKE_HU_MOVE': {
       const squares = state.squares.slice();
@@ -22,6 +21,8 @@ export const reducer = (
         xIsNext: true
       };
     }
+    case 'RESTART_GAME':
+      return initialState;
     default:
       return state;
   }

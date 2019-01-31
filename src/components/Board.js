@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Square from './Square';
-import { makeHuMove, makeAIMove } from '../actions';
+import { makeHuMove, makeAIMove, restartGame } from '../actions';
 import { calculateWinner, isGameOver } from '../utils';
 
 class Board extends React.Component {
@@ -66,6 +66,11 @@ class Board extends React.Component {
             </tr>
           </tbody>
         </table>
+        <div className="game-restart">
+          <button className="restart" onClick={this.props.restartGame}>
+            Restart the game
+          </button>
+        </div>
       </div>
     );
   }
@@ -78,7 +83,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   makeHuMove: squareIndex => dispatch(makeHuMove(squareIndex)),
-  makeAIMove: () => dispatch(makeAIMove())
+  makeAIMove: () => dispatch(makeAIMove()),
+  restartGame: () => dispatch(restartGame())
 });
 
 export default connect(
