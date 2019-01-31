@@ -1,16 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Square from './Square';
-import { updateBoard } from '../actions';
-import { calculateWinner } from '../utils';
+import { makeHuMove, makeAIMove } from '../actions';
+import { calculateWinner, isGameOver } from '../utils';
 
 class Board extends React.Component {
   handleClick(i) {
-    const { squares, updateBoard } = this.props;
-    if (calculateWinner(squares) || squares[i]) {
+    const { squares, xIsNext, makeHuMove, makeAIMove } = this.props;
+    if (calculateWinner(squares) || squares[i] || !xIsNext) {
       return;
     }
-    updateBoard(i);
+    makeHuMove(i);
+    setTimeout(makeAIMove, 1000);
   }
 
   renderSquare(i, className) {
@@ -31,8 +32,10 @@ class Board extends React.Component {
     let status;
     if (winner) {
       status = <>Winner:{value(winner)}</>;
-    } else {
+    } else if (!isGameOver(this.props.squares)) {
       status = <>Next player:{value(this.props.xIsNext ? 'X' : 'O')}</>;
+    } else {
+      status = `That's a draw!`;
     }
     return <div className="status">{status}</div>;
   }
@@ -74,7 +77,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateBoard: squareIndex => dispatch(updateBoard(squareIndex))
+  makeHuMove: squareIndex => dispatch(makeHuMove(squareIndex)),
+  makeAIMove: () => dispatch(makeAIMove())
 });
 
 export default connect(

@@ -27,7 +27,7 @@ const emptyPositions = squares =>
     .filter(s => !s.val)
     .map(s => s.index);
 
-const isGameOver = squares => emptyPositions(squares).length === 0;
+export const isGameOver = squares => emptyPositions(squares).length === 0;
 
 const score = (squares, aiPlayer, huPlayer) => {
   const winner = calculateWinner(squares);

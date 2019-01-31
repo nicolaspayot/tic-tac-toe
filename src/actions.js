@@ -1,4 +1,8 @@
-export const updateBoard = squareIndex => ({
-  type: 'UPDATE_BOARD',
+export const makeHuMove = squareIndex => ({
+  type: 'MAKE_HU_MOVE',
   squareIndex
+});
+
+export const makeAIMove = () => ({
+  type: 'MAKE_AI_MOVE'
 });
