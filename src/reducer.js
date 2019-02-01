@@ -1,3 +1,9 @@
+import {
+  MAKE_HU_MOVE,
+  MAKE_AI_MOVE,
+  RESTART_GAME,
+  UPDATE_NEXT_PLAYER
+} from './actions';
 import { minimax } from './utils';
 
 const initialState = {
@@ -9,7 +15,7 @@ const initialState = {
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'MAKE_HU_MOVE': {
+    case MAKE_HU_MOVE: {
       const squares = state.squares.slice();
       squares[action.squareIndex] = 'X';
       return {
@@ -19,7 +25,7 @@ export const reducer = (state = initialState, action) => {
         playing: true
       };
     }
-    case 'MAKE_AI_MOVE': {
+    case MAKE_AI_MOVE: {
       const squares = state.squares.slice();
       const { move } = minimax(squares, 'O', 'X', true);
       squares[move] = 'O';
@@ -30,9 +36,9 @@ export const reducer = (state = initialState, action) => {
         playing: true
       };
     }
-    case 'RESTART_GAME':
+    case RESTART_GAME:
       return initialState;
-    case 'UPDATE_NEXT_PLAYER':
+    case UPDATE_NEXT_PLAYER:
       return {
         ...state,
         xIsNext: action.nextPlayer === 'X'
