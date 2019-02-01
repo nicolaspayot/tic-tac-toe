@@ -1,7 +1,14 @@
 # Tic Tac Toe
 
-A simple Tic Tac Toe game powered with React, from the official [tutorial](https://reactjs.org/tutorial/tutorial.html).<br>
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple Tic Tac Toe game powered with React, inspired from the official [tutorial](https://reactjs.org/tutorial/tutorial.html).
+
+- Bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+- State management with `react-redux`
+- Basic "AI" with minimax algorithm
+
+## Demo
+
+Play on https://tic-tac-toe-plajvpp0c.now.sh/
 
 ## Available Scripts
 
