@@ -45,6 +45,11 @@ export const minimax = (squares, aiPlayer, huPlayer, maximize) => {
   }
 
   const availableMoves = emptyPositions(squares);
+
+  if (availableMoves.length === 9) {
+    return { move: Math.floor(Math.random() * 9) };
+  }
+
   const moves = availableMoves.map(move => {
     const possibleSquares = squares.slice();
     possibleSquares[move] = maximize ? aiPlayer : huPlayer;

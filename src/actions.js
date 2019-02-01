@@ -10,3 +10,8 @@ export const makeAIMove = () => ({
 export const restartGame = () => ({
   type: 'RESTART_GAME'
 });
+
+export const updateNextPlayer = nextPlayer => ({
+  type: 'UPDATE_NEXT_PLAYER',
+  nextPlayer
+});

@@ -1,26 +1,49 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Square from './Square';
-import { makeHuMove, makeAIMove, restartGame } from '../actions';
+import {
+  makeHuMove,
+  makeAIMove,
+  restartGame,
+  updateNextPlayer
+} from '../actions';
 import { calculateWinner, isGameOver } from '../utils';
 
 class Board extends React.Component {
   handleClick(i) {
     const { squares, xIsNext, makeHuMove, makeAIMove } = this.props;
+
     if (calculateWinner(squares) || squares[i] || !xIsNext) {
       return;
     }
+
     makeHuMove(i);
-    setTimeout(makeAIMove, 1000);
+
+    setTimeout(() => {
+      const { squares } = this.props;
+      if (calculateWinner(squares)) {
+        return;
+      }
+      makeAIMove();
+    }, 1000);
   }
 
-  renderSquare(i, className) {
+  renderTopButton() {
+    const handleClick = () => {
+      this.props.updateNextPlayer('O');
+      setTimeout(this.props.makeAIMove, 500);
+    };
+
     return (
-      <Square
-        value={this.props.squares[i]}
-        className={className}
-        onClick={() => this.handleClick(i)}
-      />
+      <div className="action">
+        <button
+          className="action-btn m-bottom-20"
+          disabled={this.props.playing}
+          onClick={handleClick}
+        >
+          Let computer starts
+        </button>
+      </div>
     );
   }
 
@@ -40,12 +63,23 @@ class Board extends React.Component {
     return <div className="status">{status}</div>;
   }
 
+  renderSquare(i, className) {
+    return (
+      <Square
+        value={this.props.squares[i]}
+        className={className}
+        onClick={() => this.handleClick(i)}
+      />
+    );
+  }
+
   render() {
     const winner = calculateWinner(this.props.squares);
     const status = this.renderStatus(winner);
 
     return (
       <div>
+        {this.renderTopButton()}
         {status}
         <table>
           <tbody>
@@ -66,8 +100,11 @@ class Board extends React.Component {
             </tr>
           </tbody>
         </table>
-        <div className="game-restart">
-          <button className="restart" onClick={this.props.restartGame}>
+        <div className="action">
+          <button
+            className="action-btn m-top-50"
+            onClick={this.props.restartGame}
+          >
             Restart the game
           </button>
         </div>
@@ -78,13 +115,15 @@ class Board extends React.Component {
 
 const mapStateToProps = state => ({
   squares: state.squares,
-  xIsNext: state.xIsNext
+  xIsNext: state.xIsNext,
+  playing: state.playing
 });
 
 const mapDispatchToProps = dispatch => ({
   makeHuMove: squareIndex => dispatch(makeHuMove(squareIndex)),
   makeAIMove: () => dispatch(makeAIMove()),
-  restartGame: () => dispatch(restartGame())
+  restartGame: () => dispatch(restartGame()),
+  updateNextPlayer: nextPlayer => dispatch(updateNextPlayer(nextPlayer))
 });
 
 export default connect(

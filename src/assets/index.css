@@ -15,7 +15,6 @@ body,
 
 body {
   font: 45px 'Century Gothic', Futura, sans-serif;
-  margin: 20px;
   color: var(--grey);
   background-color: #14bdac;
 }
@@ -86,14 +85,21 @@ table tr td:last-child {
   margin-left: 20px;
 }
 
-.game-restart {
+.m-bottom-20 {
+  margin-bottom: 20px;
+}
+
+.m-top-50 {
   margin-top: 50px;
+}
+
+.action {
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
 
-.restart {
+.action-btn {
   background-color: transparent;
   border: 5px solid var(--grey);
   text-transform: uppercase;
@@ -104,11 +110,16 @@ table tr td:last-child {
   padding: 15px 50px;
 }
 
-.restart:focus {
+.action-btn:focus {
   outline: none;
   outline-offset: -4px;
 }
 
-.restart:active {
+.action-btn:active {
   transform: scale(0.95);
+}
+
+.action-btn:disabled {
+  opacity: 0.4;
+  cursor: default;
 }
