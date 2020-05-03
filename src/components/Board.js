@@ -63,14 +63,8 @@ class Board extends React.Component {
     return <div className="status">{status}</div>;
   }
 
-  renderSquare(i, className) {
-    return (
-      <Square
-        value={this.props.squares[i]}
-        className={className}
-        onClick={() => this.handleClick(i)}
-      />
-    );
+  renderSquare(square, position) {
+    return <Square value={square} onClick={() => this.handleClick(position)} />;
   }
 
   render() {
@@ -81,25 +75,11 @@ class Board extends React.Component {
       <div>
         {this.renderTopButton()}
         {status}
-        <table>
-          <tbody>
-            <tr>
-              {this.renderSquare(0)}
-              {this.renderSquare(1)}
-              {this.renderSquare(2)}
-            </tr>
-            <tr>
-              {this.renderSquare(3)}
-              {this.renderSquare(4)}
-              {this.renderSquare(5)}
-            </tr>
-            <tr>
-              {this.renderSquare(6)}
-              {this.renderSquare(7)}
-              {this.renderSquare(8)}
-            </tr>
-          </tbody>
-        </table>
+        <div className="board">
+          {this.props.squares.map((square, position) =>
+            this.renderSquare(square, position)
+          )}
+        </div>
         <div className="action">
           <button
             className="action-btn m-top-50"
@@ -126,7 +106,4 @@ const mapDispatchToProps = dispatch => ({
   updateNextPlayer: nextPlayer => dispatch(updateNextPlayer(nextPlayer))
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Board);
+export default connect(mapStateToProps, mapDispatchToProps)(Board);
