@@ -1,6 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import TopButton from './TopButton';
+import Status from './Status';
 import Square from './Square';
+import Restart from './Restart';
 import {
   makeHuMove,
   makeAIMove,
@@ -34,33 +37,7 @@ class Board extends React.Component {
       setTimeout(this.props.makeAIMove, 500);
     };
 
-    return (
-      <div className="action">
-        <button
-          className="action-btn m-bottom-20"
-          disabled={this.props.playing}
-          onClick={handleClick}
-        >
-          Let computer starts
-        </button>
-      </div>
-    );
-  }
-
-  renderStatus(winner) {
-    const value = sign => (
-      <span className={sign === 'X' ? 'is-x' : 'is-o'}>&nbsp;{sign}</span>
-    );
-
-    let status;
-    if (winner) {
-      status = <>Winner:{value(winner)}</>;
-    } else if (!isGameOver(this.props.squares)) {
-      status = <>Next player:{value(this.props.xIsNext ? 'X' : 'O')}</>;
-    } else {
-      status = `That's a draw!`;
-    }
-    return <div className="status">{status}</div>;
+    return <TopButton playing={this.props.playing} onClick={handleClick} />;
   }
 
   renderSquare(square, position) {
@@ -69,25 +46,22 @@ class Board extends React.Component {
 
   render() {
     const winner = calculateWinner(this.props.squares);
-    const status = this.renderStatus(winner);
+    const gameOver = isGameOver(this.props.squares);
 
     return (
       <div>
         {this.renderTopButton()}
-        {status}
+        <Status
+          winner={winner}
+          gameOver={gameOver}
+          xIsNext={this.props.xIsNext}
+        />
         <div className="board">
           {this.props.squares.map((square, position) =>
             this.renderSquare(square, position)
           )}
         </div>
-        <div className="action">
-          <button
-            className="action-btn m-top-50"
-            onClick={this.props.restartGame}
-          >
-            Restart the game
-          </button>
-        </div>
+        <Restart onClick={this.props.restartGame} />
       </div>
     );
   }
