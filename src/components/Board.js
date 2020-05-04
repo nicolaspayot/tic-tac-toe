@@ -10,14 +10,14 @@ import {
 import { calculateWinner, isGameOver } from '../utils';
 
 class Board extends React.Component {
-  handleClick(i) {
+  handleClick(position) {
     const { squares, xIsNext, makeHuMove, makeAIMove } = this.props;
 
-    if (calculateWinner(squares) || squares[i] || !xIsNext) {
+    if (calculateWinner(squares) || squares[position] || !xIsNext) {
       return;
     }
 
-    makeHuMove(i);
+    makeHuMove(position);
 
     setTimeout(() => {
       const { squares } = this.props;
