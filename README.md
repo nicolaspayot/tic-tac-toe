@@ -8,7 +8,7 @@ A simple Tic Tac Toe game powered with React, inspired from the official [tutori
 
 ## Demo
 
-Play on https://tic-tac-toe-plajvpp0c.now.sh/
+Play on https://tic-tac-toe.nicolaspayot.now.sh/
 
 ## Available Scripts
 
