@@ -3,19 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.21",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
     "react-redux": "^6.0.0",
-    "react-scripts": "^3.4.1",
-    "redux": "^4.0.1"
+    "react-scripts": "^5.0.0",
+    "redux": "^4.0.1",
+    "@snyk/protect": "latest"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "now-build": "react-scripts build && mv build dist"
+    "now-build": "react-scripts build && mv build dist",
+    "prepare": "yarn run snyk-protect",
+    "snyk-protect": "snyk-protect"
   },
   "browserslist": [
     ">0.2%",
@@ -26,5 +29,6 @@
   "devDependencies": {
     "eslint-plugin-prettier": "^3.0.1",
     "prettier": "^1.16.1"
-  }
+  },
+  "snyk": true
 }
